@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  master:
+    image: fiturepet:v1.5
+    ports:
+      - "8090:8090"
+      - "5557:5557"
+      - "5558:5558"
+    volumes:
+      - ./ton.py:/mnt/locust/clients/ton.py
+      - ./ton_gabby.py:/mnt/locust/clients/ton_gabby.py
+    command: -f /mnt/locust/${FILE} --master -P 8090
+
+  worker:
+    image: fiturepet:v1.5
+    volumes:
+      - ./ton.py:/mnt/locust/clients/ton.py
+      - ./ton_gabby.py:/mnt/locust/clients/ton_gabby.py
+    command: -f /mnt/locust/${FILE} --worker --master-host 3.112.1.126
+    depends_on:
+      - master
