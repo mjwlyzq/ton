@@ -40,7 +40,7 @@ class TonClient(object):
         self.userinfo = userinfo
         self.ton_headers = LocustPublic.ton_headers(self.userinfo)
         # location = self.userinfo.get('location')
-        self.adventureId = value
+        self.adventureId = json.loads(value)
         log.info(f'获取到token：{self.ton_headers}')
         self.startTimestamp = TimeUtil.now()
 
